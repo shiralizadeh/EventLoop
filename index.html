@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Event loop</title>
+    <style>
+      * {
+        padding: 0;
+        margin: 0;
+      }
+      h1 {
+        position: absolute;
+        left: 10px;
+        display: inline-block;
+        color: white;
+        background-color: black;
+        padding: 10px;
+        border-radius: 8px;
+      }
+
+      .move-a {
+        top: 10px;
+        background-color: orange;
+      }
+
+      .move-b {
+        top: 100px;
+        background-color: blue;
+      }
+
+      .move-c {
+        top: 200px;
+        background-color: purple;
+      }
+    </style>
+  </head>
+  <body>
+    <h1 class="move-a">Move it task...</h1>
+    <h1 class="move-b">Move it micro-task...</h1>
+    <h1 class="move-c">Move it requestAnimationFrame...</h1>
+
+    <script>
+      let leftA = 10;
+      function moveA() {
+        const el = document.querySelector(".move-a");
+
+        el.style.left = `${leftA++}px`;
+        el.innerHTML = Date.now();
+      }
+
+      let leftB = 10;
+      function moveB() {
+        const el = document.querySelector(".move-b");
+
+        el.style.left = `${leftB++}px`;
+        el.innerHTML = Date.now();
+      }
+
+      let leftC = 10;
+      function moveC() {
+        const el = document.querySelector(".move-c");
+
+        el.style.left = `${leftC++}px`;
+        el.innerHTML = Date.now();
+      }
+    </script>
+    
+    <script>
+      function loopTask() {
+        moveA();
+        setTimeout(loopTask);
+      }
+
+      function loopMicroTask() {
+        moveB();
+        Promise.resolve().then(loopMicroTask);
+      }
+
+      function loopRequestAnimationFrame() {
+        moveC();
+        requestAnimationFrame(loopRequestAnimationFrame);
+      }
+    </script>
+    <script>
+      document.querySelector(".move-a").addEventListener("click", loopTask);
+      document
+        .querySelector(".move-b")
+        .addEventListener("click", loopMicroTask);
+      document
+        .querySelector(".move-c")
+        .addEventListener("click", loopRequestAnimationFrame);
+    </script>
+  </body>
+</html>
