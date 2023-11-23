@@ -11,6 +11,7 @@
       }
       h1 {
         position: absolute;
+        top: 10px;
         left: 10px;
         display: inline-block;
         color: white;
@@ -36,10 +37,12 @@
     </style>
   </head>
   <body>
-    <h1 class="move-a">Move it task...</h1>
+    <!-- <h1 class="move-a">Move it task...</h1>
     <h1 class="move-b">Move it micro-task...</h1>
-    <h1 class="move-c">Move it requestAnimationFrame...</h1>
+    <h1 class="move-c">Move it requestAnimationFrame...</h1> -->
+    <h1 class="click-me">Click me!</h1>
 
+    <!-- Move funcs -->
     <script>
       let leftA = 10;
       function moveA() {
@@ -65,7 +68,8 @@
         el.innerHTML = Date.now();
       }
     </script>
-    
+
+    <!-- Loop funcs -->
     <script>
       function loopTask() {
         moveA();
@@ -82,14 +86,32 @@
         requestAnimationFrame(loopRequestAnimationFrame);
       }
     </script>
+
+    <!-- Click events -->
     <script>
-      document.querySelector(".move-a").addEventListener("click", loopTask);
+      document.querySelector(".move-a")?.addEventListener("click", loopTask);
       document
         .querySelector(".move-b")
-        .addEventListener("click", loopMicroTask);
+        ?.addEventListener("click", loopMicroTask);
       document
         .querySelector(".move-c")
-        .addEventListener("click", loopRequestAnimationFrame);
+        ?.addEventListener("click", loopRequestAnimationFrame);
+    </script>
+
+    <!-- Click-me -->
+    <script>
+      const clickMe = document.querySelector(".click-me");
+
+      clickMe.addEventListener("click", () => {
+        console.log("Click 1");
+
+        Promise.resolve().then(() => console.log("Promise"));
+        // setTimeout(() => console.log("setTimeout"));
+      });
+
+      clickMe.addEventListener("click", () => {
+        console.log("Click 2");
+      });
     </script>
   </body>
 </html>
