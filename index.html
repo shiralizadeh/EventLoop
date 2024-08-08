@@ -83,15 +83,16 @@
     <!-- <script>
       const clickMe = document.querySelector(".click-me");
 
-      clickMe.addEventListener("click", () => {
+      clickMe.addEventListener("click", (e) => {
         console.log("Click 1");
 
         Promise.resolve().then(() => console.log("Promise 1"));
-        // setTimeout(() => console.log("setTimeout"));
       });
 
       clickMe.addEventListener("click", () => {
         console.log("Click 2");
+
+        Promise.resolve().then(() => console.log("Promise 2"));
       });
     </script> -->
   </body>
