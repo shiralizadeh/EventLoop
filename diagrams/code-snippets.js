@@ -74,6 +74,12 @@ new Promise((resolve) => {
 
 // ---
 
+function Promise(callback) { 
+  callback()
+}
+
+// --
+
 setTimeout(() => () => {
   console.log("timeout 1");
 
